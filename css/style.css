@@ -1,0 +1,363 @@
+/* Style Kerangka Secara Umum */
+html {
+    scroll-behavior: smooth;
+    font-family: sans-serif;
+    caret-color: transparent;
+}
+
+body {
+    font-family: sans-serif;
+    margin: 0;
+    padding: 0;
+}
+
+/* Seluruh Komponen Pada Header */
+.logo {
+    display: flex; /* Use flexbox */
+    align-items: center; /* Align items vertically */
+}
+
+.logo img {
+    width: 80px; /* Set the width of the logo */
+    margin-right: 10px; /* Add some space between the image and title */
+}
+
+.logo h1 {
+    margin: 0;
+    font-size: 24px;
+    font-weight: bold;
+}
+
+header nav {
+    display: flex;
+    justify-content: flex-start;
+}
+
+header nav a {
+    color:#E8EBD2;
+    text-decoration:none;
+    font-weight: bold;
+    margin: 0 20px;
+}
+
+#navbar {
+    background-color:  #E8EBD2; /* Soft blue color without transparency */
+    color:black;
+    padding: 20px 0;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 999;
+    border-bottom: 2px solid #333;
+    font-family: 'Montserrat', sans-serif;
+    transition: background-color 0.3s ease; /* Smooth transition for background color */
+}
+
+.container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+.logo h1 {
+    margin: 0;
+    font-size: 24px;
+    font-weight: bold;
+}
+
+nav ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+}
+
+nav ul li {
+    display: inline;
+    margin-left: 20px;
+}
+
+nav ul li:first-child {
+    margin-left: 0;
+}
+
+nav ul li a {
+    color: black;
+    text-decoration: none;
+    font-size: 16px;
+    position: relative; /* Needed for pseudo-element positioning */
+}
+
+nav ul li a::before {
+    content: '';
+    position: absolute;
+    top: -7px; /* Move the pseudo-element up by half of the hover size */
+    left: -7px; /* Move the pseudo-element left by half of the hover size */
+    width: calc(100% + 14px); /* Expand the width by 14 pixels (7px on each side) */
+    height: calc(100% + 14px); /* Expand the height by 14 pixels (7px on each side) */
+    background-color: #b2d3ab; /* Background color without transparency */
+    border-radius: 10px; /* Rounded corners */
+    z-index: -1; /* Behind the text */
+    transition: background-color 0.3s ease; /* Smooth transition for background color */
+}
+
+nav ul li a:hover::before {
+    background-color: #E8EBD2; /* Adjusted hover color without transparency */
+}
+
+nav ul li a:hover {
+    color:  #b2d3ab; /* Adjusted font color to match hover color */
+}
+
+.hero-section {
+    margin-top: 60px; /* Adjust margin to make room for fixed navbar */
+    background-size: cover;
+    background-position: center;
+    height: 50vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    text-align: center;
+}
+
+.hero-content {
+    max-width: 1800px;
+    padding: 20px;
+    background-color: rgba(0, 0, 0, 0.5);
+    border-radius: 10px;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    color: #E8EBD2;
+}
+
+.intro h1, .intro p {
+    margin: 10px 0;
+}
+
+/* Map Section */
+#map {
+    width: 95%;
+    height: 800px;
+    background-color: lightgray;
+    margin: 40px auto; /* Adjusted margin for space */
+    border: 2px solid #ccc; /* Add a border with a subtle color */
+    border-radius: 10px;
+    overflow: hidden;
+    position: relative; /* Relative positioning for child elements */
+    z-index: 1; /* Set z-index to be behind the header */
+}
+
+#map-section h2 {
+    text-align: center;
+    margin-top: 20px;
+    font-size: 28px;
+    margin-bottom: 20px;
+}
+.legend {
+    padding: 6px 8px;
+    background-color: rgba(255,255,255,0.8);
+    box-shadow: 0 0 15px rgba(0,0,0,0.2);
+    border-radius: 5px;
+    line-height: 18px;
+    color: #555;
+}
+.legend div {
+    width: 30px;
+    height: 15px;
+    float: left;
+    margin-right: 8px;
+    opacity: 0.7;
+}
+.legend i {
+    width: 18px;
+    height: 18px;
+    float: left;
+    margin-right: 8px;
+    opacity: 0.7;
+}
+.legend span {
+    display: inline-block;
+    margin-bottom: 5px;
+}
+.legend br {
+    clear: both;
+}
+.leaflet-top.leaflet-right {
+    top: 70px; /* atau sesuai kebutuhan */
+    right: 10px;
+}
+/* Tambahkan ke style global bila perlu */
+.legend {
+  background: white;
+  padding: 10px;
+  line-height: 1.5em;
+  font-size: 13px;
+  box-shadow: 0 0 5px rgba(0,0,0,0.3);
+}
+.legend-title {
+  font-weight: bold;
+  margin-bottom: 5px;
+}
+.legend-item {
+  display: flex;
+  align-items: center;
+  margin-bottom: 4px;
+}
+.legend-symbol {
+  width: 20px;
+  height: 10px;
+  margin-right: 6px;
+  border: 1px solid #555;
+}
+.legend-circle {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  border: 1px solid #000;
+  margin-right: 6px;
+}
+
+/* Data Section Styles - UPDATED */
+#data-section {
+    padding: 40px 20px;
+    background-color: #f5f5f5;
+}
+
+#data-section h2 {
+    text-align: center;
+    margin-bottom: 30px;
+    font-size: 28px;
+}
+
+#data-section .container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    max-width: 1200px;
+}
+
+.column {
+    flex: 0 0 calc(33.33% - 20px);
+    max-width: calc(33.33% - 20px);
+    margin-bottom: 20px;
+}
+
+.data-item {
+    background-color: white;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    padding: 20px;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.data-icon {
+    width: 60px;
+    height: 60px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 15px;
+}
+
+.data-icon img {
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain;
+}
+
+.description {
+    text-align: center;
+    width: 100%;
+}
+
+.description h3 {
+    margin-top: 0;
+    margin-bottom: 10px;
+    font-size: 20px;
+    color: #333;
+}
+
+.description p {
+    color: #555;
+    font-size: 14px;
+    line-height: 1.5;
+    margin: 0;
+}
+
+/* Author Section */
+#author-section {
+    background-color: #E8EBD2;
+    padding: 40px 20px;
+    font-family: 'Montserrat', sans-serif;
+    text-align: justify;
+}
+
+.author-content {
+    max-width: 500px;
+    margin: 0 auto;
+}
+
+.author-content h2 {
+    text-align: center;
+}
+
+.author-name {
+    text-align: center; /* Center-align only the author's name */
+}
+
+.profile-picture {
+    height: 50px;
+    width: auto;
+    border-radius: 30%;
+    margin: 0 auto 20px; /* Center the picture horizontally and add margin at the bottom */
+    display: block; /* Ensure it behaves as a block element */
+}
+
+#footer {
+    background-color: #b2d3ab;
+    color: #E8EBD2;
+    text-align: center;
+    padding: 20px;
+    font-family: 'Montserrat', sans-serif;
+    flex-shrink: 0;
+}
+
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .column {
+        flex: 0 0 100%;
+        max-width: 100%;
+    }
+    
+    .title-container {
+        width: 90%;
+        padding: 15px;
+    }
+    
+    .intro h1 {
+        font-size: 24px;
+    }
+    
+    .intro p {
+        font-size: 14px;
+    }
+}
+#footer {
+    background-color: #b2d3ab;
+    color: #000000;
+    text-align: center;
+    padding: 20px;
+    font-family: 'Montserrat', sans-serif;
+    flex-shrink: 0;
+    }
+
+    

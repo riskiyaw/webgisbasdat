@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WebGIS Kota Bandung</title>
+    
+    <!-- CSS Utama -->
+    <link rel="stylesheet" href="css/style.css">
+
+     <!-- jQuery untuk AJAX requests -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    
+    <!-- Leaflet CSS -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+          integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin=""/>
+    
+    <!-- Leaflet Plugin CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/leaflet-easybutton@2/src/easy-button.css">
+    <link rel="stylesheet" href="https://api.mapbox.com/mapbox.js/plugins/leaflet-fullscreen/v1.0.1/leaflet.fullscreen.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/leaflet.locatecontrol/dist/L.Control.Locate.min.css">
+    <link rel="stylesheet" href="https://balladaniel.github.io/leaflet-dataclassification/leaflet-dataclassification.css">
+    
+    <!-- Font Awesome untuk ikon -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    
+    <!-- CSS untuk legenda -->
+    <style>
+        /* CSS untuk legenda */
+        .info {
+            padding: 6px 8px;
+            font: 14px/16px Arial, Helvetica, sans-serif;
+            background: white;
+            background: rgba(255,255,255,0.8);
+            box-shadow: 0 0 15px rgba(0,0,0,0.2);
+            border-radius: 5px;
+        }
+        .info h4 {
+            margin: 0 0 5px;
+            color: #777;
+        }
+        .legend {
+            line-height: 18px;
+            color: #555;
+        }
+        .legend i {
+            width: 18px;
+            height: 18px;
+            float: left;
+            margin-right: 8px;
+            opacity: 0.7;
+        }
+        
+        /* CSS untuk mengatur video fullscreen dan teks di tengah */
+        .hero-section {
+            position: relative;
+            width: 100%;
+            height: 100vh; /* Mengatur tinggi hero section menjadi 100% dari viewport */
+            overflow: hidden;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        video {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            min-width: 100%;
+            min-height: 100%;
+            width: auto;
+            height: auto;
+            z-index: 1;
+            transform: translate(-50%, -50%);
+        }
+
+        .overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5); /* Menambahkan overlay gelap */
+            z-index: 2;
+        }
+
+        .intro {
+            position: relative;
+            z-index: 3; /* Menempatkan teks di atas overlay */
+            color: black; /* Mengatur warna teks */
+            text-align: center; /* Mengatur teks agar berada di tengah */
+            width: 100%;
+            max-width: 800px;
+            padding: 0 20px;
+        }
+
+        .title-container {
+            background-color: rgba(255, 255, 255, 0.7); /* Background putih transparan */
+            padding: 20px; /* Memberikan padding untuk ruang di sekitar teks */
+            border-radius: 5px; /* Menambahkan sudut yang membulat */
+            margin: 0 auto;
+        }
+
+    </style>
+</head>
+<body>
+    <header id="navbar">
+        <div class="container">
+            <div class="logo">
+                <img src="asset/logo-kota-bandung-1024x616.png" alt="Logo" width="100">
+                <h1>WebGIS Kota Bandung</h1>
+            </div>
+            <nav>
+                <ul>
+                    <li><a href="#hero-section">Home</a></li>
+                    <li><a href="#map-section">Map</a></li>
+                    <li><a href="#data-section">Data</a></li>
+                    <li><a href="#author-section">Author</a></li>
+                    <li><a href="#footer">Contact</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+    
+    <div id="hero-section" class="hero-section">
+        <div class="overlay"></div>
+        <video autoplay muted loop>
+            <source src="asset/videobdg.mp4" type="video/mp4"/>
+        </video>
+        <div class="intro">
+            <div class="title-container">
+                <h1>WebGIS Basis Data Spasial Kota Bandung</h1>
+                <p>Halaman untuk Melakukan Eksplorasi Basis Data Spasial di Kota Bandung</p>
+            </div>
+        </div>
+    </div>
+    
+    <div id="map-section">
+        <h2>Jelajahi WebGIS Basis Data Spasial Kota Bandung</h2>
+        <div id="map">
+            <!-- akan muncul peta disini -->
+        </div>
+    </div>
+    
+    <div id="data-section">
+        <h2>Data Tersedia</h2>
+        <div class="container">
+            <div class="column">
+                <div class="data-item">
+                    <div class="data-icon">
+                        <img src="asset/13-Jumlah-Penduduk-1030x1030.png" alt="Jumlah Penduduk">
+                    </div>
+                    <div class="description">
+                        <h3>Jumlah Penduduk</h3>
+                        <p>Kota Bandung merupakan salah satu kota terbesar di Indonesia dan ibu kota Provinsi Jawa Barat. 
+                        Jumlah penduduk Kota Bandung pada tahun 2024 tercatat sekitar 2,58 juta jiwa</p>
+                    </div>
+                </div>
+            </div>
+            <div class="column">
+                <div class="data-item">
+                    <div class="data-icon">
+                        <img src="asset/lajupertumbuhanekonomi.png" alt="Laju Pertumbuhan Ekonomi">
+                    </div>
+                    <div class="description">
+                        <h3>Laju Pertumbuhan Ekonomi</h3>
+                        <p>Pertumbuhan ekonomi Kota Bandung pada tahun 2023 tercatat sebesar 5,07 persen, 
+                        sedikit melambat dibanding tahun sebelumnya yang mencapai 5,41 persen.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="column">
+                <div class="data-item">
+                    <div class="data-icon">
+                        <img src="asset/bencanaalam_ikon.jpg" alt="Kejadian Bencana Alam">
+                    </div>
+                    <div class="description">
+                        <h3>Kebencanaan</h3>
+                        <p>Kota Bandung sering mengalami bencana terutama banjir dan longsor. 
+                        Pada awal tahun 2025 tercatat kejadian bencana, 
+                        terdiri dari 6 kali longsor dan 6 kali banjir yang disebabkan oleh curah hujan tinggi</p>
+                    </div>
+                </div>
+            </div>
+            <div class="column">
+                <div class="data-item">
+                    <div class="data-icon">
+                        <img src="asset/bandungtourist.png" alt="Pariwisata">
+                    </div>
+                    <div class="description">
+                        <h3>Geografi Pariwisata</h3>
+                        <p>Bandung terletak di ketinggian sekitar 768 meter di atas permukaan laut, 
+                            dengan topografi berupa cekungan yang dikelilingi oleh pegunungan, 
+                            menciptakan udara yang sejuk dan pemandangan alam yang indah</p>
+                    </div>
+                </div>
+            </div>
+            <div class="column">
+                <div class="data-item">
+                    <div class="data-icon">
+                        <img src="asset/education.jpg" alt="Pendidikan">
+                    </div>
+                    <div class="description">
+                        <h3>Fasilitas Pendidikan</h3>
+                        <p>Kota Bandung memiliki fasilitas pendidikan yang cukup lengkap dan terus berkembang, 
+                            mencakup berbagai jenjang mulai dari Taman Kanak-kanak (TK) hingga jenjang Perguruan Tinggi.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="column">
+                <div class="data-item">
+                    <div class="data-icon">
+                        <img src="asset/angkot.jpg" alt="Transportasi">
+                    </div>
+                    <div class="description">
+                        <h3>Fasilitas Transportasi</h3>
+                        <p>Kota Bandung memiliki berbagai fasilitas transportasi yang memadai, 
+                            termasuk angkutan umum seperti bus, angkot, dan taksi, serta akses jalan yang baik.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div id="author-section">
+        <div class="author-content">
+            <h2>Tentang Pembuat</h2>
+            <img src="asset/foto formal.jpeg" alt="Profile Picture" class="profile-picture">
+            <div class="author-name">
+                <h3>Riskiya Wigunati</h3>
+            </div>
+            <p>Mahasiswa yang sedang menempuh pendidikan di Universitas Pendidikan Indonesia,
+             jurusan Sains Informasi Geografi. Memiliki ketertarikan dalam bidang teknologi informasi dan geografi.
+             Saat ini sedang belajar tentang pengembangan aplikasi berbasis web dan sistem informasi geografi.</p>
+        </div>
+    </div>
+    
+    <div id="footer">
+        <div class="footer-content">
+            <h3>Hubungi Saya</h3>
+            <p>Email: riskiyawigunati14@upi.edu</p>
+            <p>Phone: +6285795236877</p>
+        </div>
+    </div>
+
+    <!-- Leaflet JS -->
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" 
+            integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+    
+    <!-- Leaflet Plugin JS -->
+    <script src="https://cdn.jsdelivr.net/npm/leaflet-easybutton@2/src/easy-button.js"></script>
+    <script src="https://api.mapbox.com/mapbox.js/plugins/leaflet-fullscreen/v1.0.1/Leaflet.fullscreen.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/leaflet.locatecontrol/dist/L.Control.Locate.min.js"></script>
+    <script src="https://balladaniel.github.io/leaflet-dataclassification/leaflet-dataclassification.js"></script>
+    
+    <!-- Script utama -->
+    <script src="js/script.js"></script>
+</body>
+</html>
